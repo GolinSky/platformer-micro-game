@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using LightWeightFramework.Model;
+﻿using LightWeightFramework.Model;
+using UnityEngine;
 
-namespace Entities.Player
+namespace Mario.Entities.Player
 {
     public interface IPlayerModelObserver : IModelObserver
     {

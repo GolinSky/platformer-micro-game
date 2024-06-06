@@ -3,7 +3,7 @@ using LightWeightFramework.Components;
 using LightWeightFramework.Model;
 using Zenject;
 
-namespace Entities.Base
+namespace Mario.Entities.Base
 {
     public abstract class View<TModel, TCommand>:View<TModel>
         where TModel : IModelObserver

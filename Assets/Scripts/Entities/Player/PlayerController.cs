@@ -1,6 +1,6 @@
 ﻿using LightWeightFramework.Controller;
 
-namespace Entities.Player
+namespace Mario.Entities.Player
 {
     public class PlayerController : Controller<PlayerModel>
     {

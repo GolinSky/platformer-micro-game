@@ -1,6 +1,6 @@
-﻿using Entities.Base;
+﻿using Mario.Entities.Base;
 
-namespace Entities.Player
+namespace Mario.Entities.Player
 {
     public class PlayerView : View<IPlayerModelObserver>
     {
