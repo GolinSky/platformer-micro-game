@@ -20,13 +20,12 @@ public class CoreInstaller : MonoInstaller
             .ByNewContextPrefab<PlayerInstaller>(Repository.LoadComponent<PlayerInstaller>(nameof(PlayerInstaller)));
 
         Container
-            .BindInterfacesNonLazy<CoreService>();
+            .BindInterfacesNonLazy<CoreService>()
+            .BindInterfaces<InputService>();
 
         Container
             .BindInstance(spawnPoint)
             .WithId(TransformInjectKeys.SpawnPoint)
             .AsSingle();
-        
     }
-
 }
