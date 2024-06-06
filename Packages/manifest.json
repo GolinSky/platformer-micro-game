@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "com.light-weight-framework": "https://github.com/GolinSky/LightWeightFramework.git?path=/Assets/LightWeightFramework",
+    "com.unity.addressables": "1.21.21",
     "com.unity.cinemachine": "2.9.5",
     "com.unity.collab-proxy": "2.3.1",
     "com.unity.connect.share": "4.2.3",
