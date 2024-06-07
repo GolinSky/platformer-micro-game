@@ -26,4 +26,5 @@ namespace Mario.Entities.Player
             AddInnerModels(movementModel, healthModel, playerAudioModel);
         }
     }
+    
 }
