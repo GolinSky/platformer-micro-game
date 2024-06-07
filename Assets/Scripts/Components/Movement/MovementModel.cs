@@ -7,6 +7,7 @@ namespace Mario.Components.Movement
 {
     public interface IMovementModelObserver : IModelObserver
     {
+        event Action OnJumped;
         event Action OnMoveToStartPosition;
         Vector3 StartPosition { get; }
         Vector2 Velocity { get; set; }// todo: refactor
@@ -25,15 +26,16 @@ namespace Mario.Components.Movement
     [Serializable]
     public class MovementModel : InnerModel, IMovementModelObserver
     {
+        public event Action OnJumped;
+        public event Action OnMoveToStartPosition;
+        
         [field: SerializeField] public float MinGroundNormalY { get; private set; }
         [field: SerializeField] public float GravityModifier { get; private set; }
         [field: SerializeField] public float JumpModifier { get; private set; }
         [field: SerializeField] public float JumpDeceleration { get; private set; }
         [field: SerializeField] public float JumpTakeOffSpeed { get; private set; }
-
         [field: SerializeField] public float MaxHorizontalSpeed { get; private set; }
-
-        public event Action OnMoveToStartPosition;
+        
 
         [Inject]
         public Vector3 StartPosition { get; }
@@ -70,6 +72,11 @@ namespace Mario.Components.Movement
         public void MoveToStartPosition()
         {
             OnMoveToStartPosition?.Invoke();
+        }
+
+        public void InvokeJumpedEvent()
+        {
+            OnJumped?.Invoke();
         }
     }
 }

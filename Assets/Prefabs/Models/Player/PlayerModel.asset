@@ -20,7 +20,12 @@ MonoBehaviour:
     <JumpDeceleration>k__BackingField: 0
     <JumpTakeOffSpeed>k__BackingField: 7
     <MaxHorizontalSpeed>k__BackingField: 3
-  healthModel:
-    Test: test
+  playerAudioModel:
+    <JumpAudioClip>k__BackingField: {fileID: 8300000, guid: 67975c08d56ceb147bad38572d805aa8,
+      type: 3}
+    <RespawnAudioClip>k__BackingField: {fileID: 8300000, guid: e18959d46b63f3c4c8cc020a433cf848,
+      type: 3}
+    <DamageAudioClip>k__BackingField: {fileID: 8300000, guid: 6c05149e5a2fba64ba172e25a61074b7,
+      type: 3}
   <RebornDelay>k__BackingField: 2
   <BounceForce>k__BackingField: 2

@@ -1,4 +1,5 @@
 ﻿using LightWeightFramework.Model;
+using Mario.Components.Audio;
 using Mario.Components.Health;
 using Mario.Components.Movement;
 using UnityEngine;
@@ -15,13 +16,14 @@ namespace Mario.Entities.Player
     {
         [SerializeField] private MovementModel movementModel;
         [SerializeField] private HealthModel healthModel;
+        [SerializeField] private PlayerAudioModel playerAudioModel;
         [field:SerializeField]  public float RebornDelay { get; private set; }
         [field: SerializeField] public float BounceForce { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
-            AddInnerModels(movementModel, healthModel);
+            AddInnerModels(movementModel, healthModel, playerAudioModel);
         }
     }
 }

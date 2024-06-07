@@ -30,6 +30,7 @@ namespace Mario.Components.Movement
                     if (movementComponent.JumpState == JumpState.Grounded && inputService.Direction.y > 0.1f)
                     {
                         movementComponent.SetJumpState(JumpState.PrepareToJump);
+                        Model.InvokeJumpedEvent();
                     }
                     else if (inputService.Direction.y <= 0.1f)
                     {
