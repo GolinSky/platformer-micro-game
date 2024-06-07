@@ -16,6 +16,7 @@ namespace Mario.Entities.Player
         [SerializeField] private MovementModel movementModel;
         [SerializeField] private HealthModel healthModel;
         [field:SerializeField]  public float RebornDelay { get; private set; }
+        [field: SerializeField] public float BounceForce { get; private set; }
 
         protected override void Awake()
         {

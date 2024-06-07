@@ -14,7 +14,6 @@ namespace Mario.Components.Health
     [Serializable]
     public class HealthModel : InnerModel, IHealthModelObserver
     {
-        public string Test;
         public event Action OnDied;
         public event Action OnApplyDamage;
         public event Action OnRespawn;

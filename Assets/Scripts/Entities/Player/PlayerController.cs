@@ -36,7 +36,7 @@ namespace Mario.Entities.Player
 
         private void OnDamageApplied()
         {
-            movementCommand.Bounce(2f);
+            movementCommand.Bounce(Model.BounceForce);
         }
 
         private void OnDie()

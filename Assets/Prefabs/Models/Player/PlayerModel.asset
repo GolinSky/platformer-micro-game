@@ -22,3 +22,5 @@ MonoBehaviour:
     <MaxHorizontalSpeed>k__BackingField: 3
   healthModel:
     Test: test
+  <RebornDelay>k__BackingField: 2
+  <BounceForce>k__BackingField: 2
