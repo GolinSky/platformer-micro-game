@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: PlayerModel
   m_EditorClassIdentifier: 
   models: []
+  movementModel:
+    <MinGroundNormalY>k__BackingField: 0.65
+    <GravityModifier>k__BackingField: 1
+    <JumpModifier>k__BackingField: 0.9
+    <JumpDeceleration>k__BackingField: 0
+    <JumpTakeOffSpeed>k__BackingField: 7
+    <MaxHorizontalSpeed>k__BackingField: 3
