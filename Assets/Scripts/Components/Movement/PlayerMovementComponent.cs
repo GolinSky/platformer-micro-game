@@ -11,6 +11,8 @@ namespace Mario.Components.Movement
     {
         private readonly IInputService inputService;
         private MovementComponent movementComponent;
+        private bool isBlocked;
+
         public PlayerMovementComponent(IModel rootModel, IInputService inputService) : base(rootModel)
         {
             this.inputService = inputService;
@@ -19,23 +21,26 @@ namespace Mario.Components.Movement
 
         public void Tick()
         {
-            if (inputService.HasDirectionInput)
+            if (!isBlocked)
             {
-                Model.Direction = inputService.Direction;
+                if (inputService.HasDirectionInput)
+                {
+                    Model.Direction = inputService.Direction;
 
-                if (movementComponent.JumpState == JumpState.Grounded && inputService.Direction.y > 0.1f)
-                {
-                    movementComponent.SetJumpState(JumpState.PrepareToJump);
+                    if (movementComponent.JumpState == JumpState.Grounded && inputService.Direction.y > 0.1f)
+                    {
+                        movementComponent.SetJumpState(JumpState.PrepareToJump);
+                    }
+                    else if (inputService.Direction.y <= 0.1f)
+                    {
+                        movementComponent.StopJumping();
+                    }
                 }
-                else if (inputService.Direction.y <= 0.1f)
+                else
                 {
+                    Model.Direction = Vector2.zero;
                     movementComponent.StopJumping();
                 }
-            }
-            else
-            {
-                Model.Direction = Vector2.zero;
-                movementComponent.StopJumping();
             }
             
             movementComponent.Tick();
@@ -49,6 +54,11 @@ namespace Mario.Components.Movement
         public void MoveToStartPosition()
         {
             movementComponent.MoveToStartPosition();
+        }
+
+        public void Block(bool isBlocked)
+        {
+            this.isBlocked = isBlocked;
         }
     }
 }

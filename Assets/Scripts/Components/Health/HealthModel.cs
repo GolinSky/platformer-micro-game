@@ -7,6 +7,7 @@ namespace Mario.Components.Health
     {
         event Action OnDied;
         event Action OnApplyDamage;
+        event Action OnRespawn;
         bool IsDead { get;  }
     }
     
@@ -16,7 +17,8 @@ namespace Mario.Components.Health
         public string Test;
         public event Action OnDied;
         public event Action OnApplyDamage;
-        
+        public event Action OnRespawn;
+
         public int RespawnAmount { get; private set; }
         public bool IsDead { get; private set; }
 
@@ -35,6 +37,7 @@ namespace Mario.Components.Health
         public void Reborn()
         {
             IsDead = false;
+            OnRespawn?.Invoke();
         }
     }
 }

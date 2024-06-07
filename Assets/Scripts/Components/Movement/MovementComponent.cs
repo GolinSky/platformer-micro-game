@@ -11,6 +11,7 @@ namespace Mario.Components.Movement
     {
         void Bounce(float value);
         void MoveToStartPosition();
+        void Block(bool isBlocked);
     }
 
     public class MovementComponent: Component<MovementModel>, ITickable, IMovementCommand
@@ -19,6 +20,7 @@ namespace Mario.Components.Movement
         private JumpState jumpState;
         private bool isStopJumping;
         private bool isJumping;
+        private bool isBlocked;
 
         public MovementComponent(IModel rootModel) : base(rootModel)
         {
@@ -35,6 +37,11 @@ namespace Mario.Components.Movement
         {
             Model.Velocity = Vector3.zero;
             Model.MoveToStartPosition();
+        }
+
+        public void Block(bool isBlocked)
+        {
+            //fix this
         }
 
         public void Tick()
