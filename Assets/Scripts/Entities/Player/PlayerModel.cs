@@ -1,18 +1,23 @@
 ﻿using LightWeightFramework.Model;
+using Mario.Components.Movement;
 using UnityEngine;
-using Zenject;
 
 namespace Mario.Entities.Player
 {
     public interface IPlayerModelObserver : IModelObserver
     {
-        Vector3 StartPosition { get; }
+     
     }
 
     [CreateAssetMenu(fileName = "PlayerModel", menuName = "Model/PlayerModel")]
     public class PlayerModel : Model, IPlayerModelObserver
     {
-        [Inject]
-        public Vector3 StartPosition { get; }
+        [SerializeField] private MovementModel movementModel;
+        
+        protected override void Awake()
+        {
+            base.Awake();
+            AddInnerModels(movementModel);
+        }
     }
 }

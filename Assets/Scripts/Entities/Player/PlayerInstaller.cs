@@ -1,4 +1,5 @@
-﻿using Mario.Zenject.Extensions;
+﻿using Mario.Components.Movement;
+using Mario.Zenject.Extensions;
 using Mario.Zenject.GameObjectInstallers;
 using UnityEngine;
 using Zenject;
@@ -19,6 +20,12 @@ namespace Mario.Entities.Player
         {
             base.BindParameters();
             Container.BindEntity(startPosition);
+        }
+
+        protected override void BindComponents()
+        {
+            base.BindComponents();
+            Container.BindInterfaces<MovementComponent>();
         }
     }
 }

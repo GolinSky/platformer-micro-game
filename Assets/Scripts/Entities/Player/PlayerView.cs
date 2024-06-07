@@ -6,7 +6,7 @@ namespace Mario.Entities.Player
     {
         protected override void OnInitialize()
         {
-            transform.position = Model.StartPosition;
+            //transform.position = Model.StartPosition;
         }
 
         protected override void OnDispose()
