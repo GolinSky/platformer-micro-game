@@ -29,6 +29,7 @@ namespace Mario.Zenject.GameObjectInstallers
 
         public sealed override void InstallBindings()
         {
+            OnBeforeInjection();
             BindParameters();
             BindModel();
             BindController();
@@ -68,6 +69,7 @@ namespace Mario.Zenject.GameObjectInstallers
         protected virtual void OnModelCreated() {}
         protected virtual void BindParameters() {}
         protected virtual void BindComponents() {}
+        protected virtual void OnBeforeInjection(){}
         protected abstract void BindView();
         protected abstract void ResolveView();
     }

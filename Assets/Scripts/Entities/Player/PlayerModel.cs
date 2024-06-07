@@ -1,4 +1,5 @@
 ﻿using LightWeightFramework.Model;
+using Mario.Components.Health;
 using Mario.Components.Movement;
 using UnityEngine;
 
@@ -13,11 +14,12 @@ namespace Mario.Entities.Player
     public class PlayerModel : Model, IPlayerModelObserver
     {
         [SerializeField] private MovementModel movementModel;
+        [SerializeField] private HealthModel healthModel;
         
         protected override void Awake()
         {
             base.Awake();
-            AddInnerModels(movementModel);
+            AddInnerModels(movementModel, healthModel);
         }
     }
 }

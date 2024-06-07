@@ -7,6 +7,7 @@ namespace Mario.Components.Movement
 {
     public interface IMovementModelObserver : IModelObserver
     {
+        event Action OnMoveToStartPosition;
         Vector3 StartPosition { get; }
         Vector2 Velocity { get; set; }// todo: refactor
         Vector2 TargetVelocity { get; }
@@ -31,6 +32,8 @@ namespace Mario.Components.Movement
         [field: SerializeField] public float JumpTakeOffSpeed { get; private set; }
 
         [field: SerializeField] public float MaxHorizontalSpeed { get; private set; }
+
+        public event Action OnMoveToStartPosition;
 
         [Inject]
         public Vector3 StartPosition { get; }
@@ -62,6 +65,11 @@ namespace Mario.Components.Movement
             Vector2 vector3 = Velocity;
             vector3.x = value;
             Velocity = vector3;
+        }
+
+        public void MoveToStartPosition()
+        {
+            OnMoveToStartPosition?.Invoke();
         }
     }
 }

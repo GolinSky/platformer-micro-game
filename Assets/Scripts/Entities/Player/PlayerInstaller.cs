@@ -1,4 +1,5 @@
-﻿using Mario.Components.Movement;
+﻿using Mario.Components.Health;
+using Mario.Components.Movement;
 using Mario.Zenject.Extensions;
 using Mario.Zenject.GameObjectInstallers;
 using UnityEngine;
@@ -25,7 +26,8 @@ namespace Mario.Entities.Player
         protected override void BindComponents()
         {
             base.BindComponents();
-            Container.BindInterfaces<MovementComponent>();
+            Container.BindInterfaces<PlayerMovementComponent>();
+            Container.BindInterfaces<HealthComponent>();
         }
     }
 }

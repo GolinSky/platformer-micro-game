@@ -1,61 +1,44 @@
-﻿using LightWeightFramework.Model;
+﻿using LightWeightFramework.Command;
+using LightWeightFramework.Model;
 using Mario.Components.Base;
-using Mario.Services;
 using Platformer.Mechanics;
 using UnityEngine;
 using Zenject;
 
 namespace Mario.Components.Movement
 {
-    public class MovementComponent: Component<MovementModel>, ITickable
+    public interface IMovementCommand: ICommand
     {
-        private readonly IInputService inputService;
+        void Bounce(float value);
+        void MoveToStartPosition();
+    }
 
+    public class MovementComponent: Component<MovementModel>, ITickable, IMovementCommand
+    {
         private Vector2 direction;
         private JumpState jumpState;
         private bool isStopJumping;
         private bool isJumping;
 
-        public MovementComponent(IModel rootModel, IInputService inputService) : base(rootModel)
+        public MovementComponent(IModel rootModel) : base(rootModel)
         {
-            this.inputService = inputService;
         }
-        
+
+        public JumpState JumpState => jumpState;
+
         public void Bounce(float value)
         {
             Model.SetVelocityOnAxisY(value);
         }
         
-        public void Teleport(Vector3 position)
+        public void MoveToStartPosition()
         {
-            // body.position = position;
-            // velocity *= 0;
-            // body.velocity *= 0;
-
             Model.Velocity = Vector3.zero;
-            //update view rigidbody
+            Model.MoveToStartPosition();
         }
 
         public void Tick()
         {
-            if (inputService.HasDirectionInput)
-            {
-                Model.Direction = inputService.Direction;
-
-                if (jumpState == JumpState.Grounded && inputService.Direction.y > 0.1f)
-                {
-                    jumpState = JumpState.PrepareToJump;
-                }
-                else if (inputService.Direction.y <= 0.1f)
-                {
-                    isStopJumping = true;
-                }
-            }
-            else
-            {
-                Model.Direction = Vector2.zero;
-                isStopJumping = true;
-            }
             UpdateJumpState();
             ComputeVelocity();
         }
@@ -109,6 +92,16 @@ namespace Mario.Components.Movement
             }
 
             Model.TargetVelocity = Model.Direction * Model.MaxHorizontalSpeed;
+        }
+
+        public void SetJumpState(JumpState jumpState)
+        {
+            this.jumpState = jumpState;
+        }
+
+        public void StopJumping()
+        {
+            isStopJumping = true;
         }
     }
 }

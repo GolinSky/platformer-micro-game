@@ -10,17 +10,16 @@ namespace Mario.Zenject.GameObjectInstallers
         where TModel : Model
     {
         [SerializeField] private View view;
-
-        private void OnValidate()
-        {
-            view = GetComponent<View>();
-        }
-
+        
         protected sealed override void ResolveView() {}
+        protected override void OnBeforeInjection()
+        {
+            base.OnBeforeInjection();
+            View = view;
+        }
 
         protected override void BindView()
         {
-            View = view;
             Container
                 .BindInterfacesAndSelfTo(View.GetType())
                 .FromInstance(View)

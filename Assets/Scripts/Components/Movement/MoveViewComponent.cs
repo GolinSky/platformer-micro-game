@@ -19,21 +19,29 @@ namespace Mario.Components.Movement
         protected override void OnInit()
         {
             base.OnInit();
-            transform.position = Model.StartPosition;
+            rigidbody.position = Model.StartPosition;
             rigidbody.isKinematic = true;
             
             contactFilter.useTriggers = false;
             contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
             contactFilter.useLayerMask = true;
+
+            Model.OnMoveToStartPosition += MoveToStartPosition;
         }
+
+     
 
         protected override void OnRelease()
         {
             base.OnRelease();
             rigidbody.isKinematic = false;
+            Model.OnMoveToStartPosition -= MoveToStartPosition;
         }
-
-  
+        
+        private void MoveToStartPosition()
+        {
+            rigidbody.position = Model.StartPosition;
+        }
 
         public void FixedTick()
         {
