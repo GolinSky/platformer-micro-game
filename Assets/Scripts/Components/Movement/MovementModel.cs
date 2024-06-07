@@ -1,6 +1,5 @@
 ﻿using System;
 using LightWeightFramework.Model;
-using Platformer.Mechanics;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +13,7 @@ namespace Mario.Components.Movement
         bool IsGrounded { get; set; } // todo: refactor
         float MinGroundNormalY { get; }
         float GravityModifier { get; }
+        float MaxHorizontalSpeed { get; }
         Vector2 Direction { get; }
         void SetVelocityOnAxisX(float value);
         void SetVelocityOnAxisY(float value);
@@ -42,12 +42,6 @@ namespace Mario.Components.Movement
         public Vector2 TargetVelocity { get; set; }
         
         public bool IsGrounded { get; set; }
-        
-        
-        
-        public JumpState JumpState { get; set; }
-
-
         
 
         public void SetVelocityOnAxisY(float value)

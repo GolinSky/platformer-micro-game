@@ -1,4 +1,5 @@
-﻿using LightWeightFramework.Components.ViewComponents;
+﻿using System;
+using LightWeightFramework.Components.ViewComponents;
 using UnityEngine;
 using Zenject;
 
@@ -32,21 +33,23 @@ namespace Mario.Components.Movement
             rigidbody.isKinematic = false;
         }
 
+  
+
         public void FixedTick()
         {
             if (Model.Velocity.y < 0)
             {
-                Model.Velocity += Model.GravityModifier * Physics2D.gravity * Time.deltaTime;
+                Model.Velocity += Model.GravityModifier * Physics2D.gravity * Time.fixedDeltaTime;
             }
             else
             {
-                Model.Velocity += Physics2D.gravity * Time.deltaTime;
+                Model.Velocity += Physics2D.gravity * Time.fixedDeltaTime;
             }
 
             Model.SetVelocityOnAxisX(Model.TargetVelocity.x);
             Model.IsGrounded = false;
 
-            Vector2 deltaPosition = Model.Velocity * Time.deltaTime;
+            Vector2 deltaPosition = Model.Velocity * Time.fixedDeltaTime;
 
             Vector2 moveAlongGround = new Vector2(groundNormal.y, -groundNormal.x);
 
@@ -82,6 +85,7 @@ namespace Mario.Components.Movement
                             currentNormal.x = 0;
                         }
                     }
+                
 
                     if (Model.IsGrounded)
                     {

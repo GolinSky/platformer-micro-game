@@ -65,7 +65,7 @@ namespace Mario.Entities.Input
         private void OnEndDragInternal()
         {
             pointPosition.x = 0f;
-            pointPosition.x = 0f;
+            pointPosition.y = 0f;
             knobRectTransform.transform.position = backgroundRectTransform.position;
             Command.UpdateDirection(pointPosition);
         }

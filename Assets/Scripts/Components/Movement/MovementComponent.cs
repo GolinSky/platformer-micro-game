@@ -7,14 +7,14 @@ using Zenject;
 
 namespace Mario.Components.Movement
 {
-    public class MovementComponent: Component<MovementModel>, ITickable, IFixedTickable
+    public class MovementComponent: Component<MovementModel>, ITickable
     {
         private readonly IInputService inputService;
 
         private Vector2 direction;
         private JumpState jumpState;
-        private bool stopJump;
-        public bool jump;
+        private bool isStopJumping;
+        private bool isJumping;
 
         public MovementComponent(IModel rootModel, IInputService inputService) : base(rootModel)
         {
@@ -42,35 +42,33 @@ namespace Mario.Components.Movement
             {
                 Model.Direction = inputService.Direction;
 
-                if (jumpState == JumpState.Grounded && inputService.Direction.y > 0)
+                if (jumpState == JumpState.Grounded && inputService.Direction.y > 0.1f)
                 {
                     jumpState = JumpState.PrepareToJump;
                 }
-                else if (inputService.Direction.y <= 0f)
+                else if (inputService.Direction.y <= 0.1f)
                 {
-                    stopJump = true;
+                    isStopJumping = true;
                 }
             }
             else
             {
                 Model.Direction = Vector2.zero;
-                stopJump = true;
-
+                isStopJumping = true;
             }
             UpdateJumpState();
-
             ComputeVelocity();
         }
-        
-        public void UpdateJumpState()
+
+        private void UpdateJumpState()
         {
-            jump = false;
+            isJumping = false;
             switch (jumpState)
             {
                 case JumpState.PrepareToJump:
                     jumpState = JumpState.Jumping;
-                    jump = true;
-                    stopJump = false;
+                    isJumping = true;
+                    isStopJumping = false;
                     break;
                 case JumpState.Jumping:
                     if (!Model.IsGrounded)
@@ -96,34 +94,21 @@ namespace Mario.Components.Movement
         {
             Model.TargetVelocity = Vector2.zero;
 
-            if (jump && Model.IsGrounded)
+            if (isJumping && Model.IsGrounded)
             {
                 Model.SetVelocityOnAxisY(Model.JumpTakeOffSpeed * Model.JumpModifier);
-                jump = false;
+                isJumping = false;
             }
-            else if (stopJump)
+            else if (isStopJumping)
             {
-                stopJump = false;
+                isStopJumping = false;
                 if (Model.Velocity.y > 0)
                 {
                     Model.SetVelocityOnAxisY(Model.Velocity.y * Model.JumpDeceleration);
                 }
             }
 
-            // if (move.x > 0.01f)
-            //     spriteRenderer.flipX = false;
-            // else if (move.x < -0.01f)
-            //     spriteRenderer.flipX = true;
-
-            // animator.SetBool("grounded", IsGrounded);
-            // animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
-
             Model.TargetVelocity = Model.Direction * Model.MaxHorizontalSpeed;
-        }
-
-        public void FixedTick()
-        {
-           
         }
     }
 }
