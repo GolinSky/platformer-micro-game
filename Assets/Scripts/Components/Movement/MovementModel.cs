@@ -11,6 +11,7 @@ namespace Mario.Components.Movement
         event Action OnJumped;
         event Action OnMoveToStartPosition;
         
+        Transform Transform { get; }
         Vector3 StartPosition { get; }
         Vector2 Velocity { get; set; }// todo: refactor
         Vector2 TargetVelocity { get; }
@@ -47,6 +48,8 @@ namespace Mario.Components.Movement
 
         [Inject]
         public Vector3 StartPosition { get; }
+
+        public Transform Transform => ViewTransform.Value;
         
         public Vector2 Velocity { get; set; }
         
