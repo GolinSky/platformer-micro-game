@@ -1,5 +1,5 @@
-﻿using LightWeightFramework.Model;
-using Mario.Components.Health;
+﻿using Mario.Components.Health;
+using Mario.Configuration;
 using Mario.Entities.Player;
 using TMPro;
 using UnityEngine;
@@ -23,9 +23,9 @@ namespace Mario.Entities.Ui.Player
         {
             healthModelObserver = PlayerModelObserver.GetModelObserver<IHealthModelObserver>();
             UpdateRespawnInformation();
-            
-            healthModelObserver.OnRespawn += UpdateRespawnInformation;
             UpdateDistanceText();
+
+            healthModelObserver.OnRespawn += UpdateRespawnInformation;
         }
 
         public override void LateDispose()
@@ -35,12 +35,12 @@ namespace Mario.Entities.Ui.Player
         
         private void UpdateRespawnInformation()
         {
-            respawnText.text = healthModelObserver.RespawnAmount.ToString();
+            respawnText.text = healthModelObserver.RespawnAmount.ToString(StringConfiguration.CultureInfo);
         }
 
         private void UpdateDistanceText()
         {
-            distanceText.text = PlayerModelObserver.DistanceFromSpawnPoint.ToString();
+            distanceText.text = PlayerModelObserver.DistanceFromSpawnPoint.ToString(StringConfiguration.CultureInfo);
         }
 
         protected override void OnUpdate()
