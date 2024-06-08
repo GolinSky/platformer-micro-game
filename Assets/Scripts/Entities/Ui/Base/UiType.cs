@@ -4,5 +4,6 @@
     {
         Player = 0,
         Victory = 1,
+        CoreMenu = 2,
     }
 }
