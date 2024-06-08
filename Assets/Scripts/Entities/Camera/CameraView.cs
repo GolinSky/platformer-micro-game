@@ -1,5 +1,4 @@
 ﻿using Mario.Entities.Base;
-using Mario.Entities.Player;
 using UnityEngine;
 
 namespace Mario.Entities.Camera
@@ -10,11 +9,19 @@ namespace Mario.Entities.Camera
 
         protected override void OnInitialize()
         {
-            virtualCamera.Follow = Model.PlayerTransform;
+            UpdateTarget();
+            Model.OnTargetChanged += UpdateTarget;
         }
-
+        
         protected override void OnDispose()
         {
+            Model.OnTargetChanged -= UpdateTarget;
+        }
+
+        private void UpdateTarget()
+        {
+            virtualCamera.Follow = Model.TargetTransform;
+            virtualCamera.LookAt = Model.TargetTransform;
         }
     }
 }
