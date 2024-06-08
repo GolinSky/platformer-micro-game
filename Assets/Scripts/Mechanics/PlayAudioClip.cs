@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mario.Services;
 using UnityEngine;
+using Zenject;
 
 /// <summary>
 /// This class allows an audio clip to be played during an animation state.
@@ -23,12 +25,14 @@ public class PlayAudioClip : StateMachineBehaviour
     public AudioClip clip;
     float last_t = -1f;
 
+    [Inject] private AudioService AudioService { get; }
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         var nt = stateInfo.normalizedTime;
         if (modulus > 0f) nt %= modulus;
         if (nt >= t && last_t < t)
-            AudioSource.PlayClipAtPoint(clip, animator.transform.position);
+            AudioService.PlayClipAtPoint(clip, animator.transform.position);
+            // AudioSource.PlayClipAtPoint(clip, animator.transform.position);
         last_t = nt;
     }
 }

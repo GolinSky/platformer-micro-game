@@ -2,11 +2,10 @@
 using Mario.Components.Health;
 using Mario.Components.Movement;
 using Mario.Services;
-using Zenject;
 
 namespace Mario.Components.Audio
 {
-    public class PlayerAudioComponent: BaseAudioComponent<PlayerAudioModel>, IInitializable, ILateDisposable
+    public class PlayerAudioComponent: BaseAudioComponent<PlayerAudioModel>
     {
         private readonly IHealthModelObserver healthModelObserver;
         private readonly IMovementModelObserver movementModelObserver;

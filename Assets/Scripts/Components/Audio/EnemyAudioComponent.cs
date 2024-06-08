@@ -1,11 +1,10 @@
 ﻿using LightWeightFramework.Model;
 using Mario.Components.Health;
 using Mario.Services;
-using Zenject;
 
 namespace Mario.Components.Audio
 {
-    public class EnemyAudioComponent : BaseAudioComponent<EnemyAudioModel>, IInitializable, ILateDisposable
+    public class EnemyAudioComponent : BaseAudioComponent<EnemyAudioModel>
     {
         private readonly IHealthModelObserver healthModelObserver;
 
