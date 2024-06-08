@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Mario.Entities.Ui.Base
 {
-    public abstract class Ui: MonoBehaviour, IInitializable, ILateDisposable
+    public abstract class Ui: MonoBehaviour, IInitializable, ILateDisposable, ITickable
     {
         [SerializeField] protected Canvas canvas;
 
@@ -22,6 +22,11 @@ namespace Mario.Entities.Ui.Base
         {
             SetCanvasState(false);
         }
+        
+        public void Tick()
+        {
+            OnUpdate();
+        }
 
         private void SetCanvasState(bool isActive) => canvas.enabled = isActive;
         
@@ -29,6 +34,8 @@ namespace Mario.Entities.Ui.Base
         public virtual void LateDispose() {}
         protected virtual void OnClose() {}
         protected virtual void OnShow() {}
+        protected virtual void OnUpdate() {}
         protected virtual void OnSetParent(Transform parent) {}
+     
     }
 }

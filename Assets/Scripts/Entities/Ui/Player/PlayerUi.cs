@@ -22,7 +22,10 @@ namespace Mario.Entities.Ui.Player
         public override void Initialize()
         {
             healthModelObserver = PlayerModelObserver.GetModelObserver<IHealthModelObserver>();
+            UpdateRespawnInformation();
+            
             healthModelObserver.OnRespawn += UpdateRespawnInformation;
+            UpdateDistanceText();
         }
 
         public override void LateDispose()
@@ -33,6 +36,16 @@ namespace Mario.Entities.Ui.Player
         private void UpdateRespawnInformation()
         {
             respawnText.text = healthModelObserver.RespawnAmount.ToString();
+        }
+
+        private void UpdateDistanceText()
+        {
+            distanceText.text = PlayerModelObserver.DistanceFromSpawnPoint.ToString();
+        }
+
+        protected override void OnUpdate()
+        {
+            UpdateDistanceText();
         }
     }
 }

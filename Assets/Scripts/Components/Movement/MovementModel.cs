@@ -1,5 +1,6 @@
 ﻿using System;
 using LightWeightFramework.Model;
+using Mario.Zenject.GameObjectInstallers;
 using UnityEngine;
 using Zenject;
 
@@ -9,14 +10,18 @@ namespace Mario.Components.Movement
     {
         event Action OnJumped;
         event Action OnMoveToStartPosition;
+        
         Vector3 StartPosition { get; }
         Vector2 Velocity { get; set; }// todo: refactor
         Vector2 TargetVelocity { get; }
-        bool IsGrounded { get; set; } // todo: refactor
+        Vector2 Direction { get; }
+        Vector2 CurrentPosition { get; }
+        
         float MinGroundNormalY { get; }
         float GravityModifier { get; }
         float MaxHorizontalSpeed { get; }
-        Vector2 Direction { get; }
+        bool IsGrounded { get; set; } // todo: refactor
+        
         void SetVelocityOnAxisX(float value);
         void SetVelocityOnAxisY(float value);
 
@@ -28,14 +33,17 @@ namespace Mario.Components.Movement
     {
         public event Action OnJumped;
         public event Action OnMoveToStartPosition;
-        
+
         [field: SerializeField] public float MinGroundNormalY { get; private set; }
         [field: SerializeField] public float GravityModifier { get; private set; }
         [field: SerializeField] public float JumpModifier { get; private set; }
         [field: SerializeField] public float JumpDeceleration { get; private set; }
         [field: SerializeField] public float JumpTakeOffSpeed { get; private set; }
         [field: SerializeField] public float MaxHorizontalSpeed { get; private set; }
+
         
+        [Inject(Id = EntityBindType.ViewTransform)]
+        public LazyInject<Transform> ViewTransform { get; }
 
         [Inject]
         public Vector3 StartPosition { get; }
@@ -45,6 +53,8 @@ namespace Mario.Components.Movement
         public Vector2 Direction { get; set; }
         
         public Vector2 TargetVelocity { get; set; }
+
+        public Vector2 CurrentPosition => ViewTransform.Value.position;
         
         public bool IsGrounded { get; set; }
         
