@@ -1,4 +1,5 @@
-﻿using Mario.Repository;
+﻿using LightWeightFramework.Components.Repository;
+using Mario.Repository;
 using Mario.Services.SceneLoading;
 using Mario.Zenject.Extensions;
 
@@ -11,6 +12,9 @@ namespace Zenject.Project
             Container
                 .BindInterfacesNonLazy<AddressableRepository>()
                 .BindInterfaces<SceneService>();
+
+            IRepository repository = Container.Resolve<IRepository>();
+            Container.BindModel<SceneModel>(repository);
         }
     }
 }
