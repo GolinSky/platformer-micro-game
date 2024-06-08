@@ -1,6 +1,7 @@
 ﻿using LightWeightFramework.Components.Service;
 using Mario.Entities.Player;
 using Mario.Entities.Ui.Base;
+using Mario.Services.SceneLoading;
 using Mario.Zenject.Scene;
 using UnityEngine;
 using Zenject;
@@ -17,15 +18,17 @@ namespace Mario.Services
     {
         private readonly PlayerFacade playerFacade;
         private readonly IUiService uiService;
+        private readonly ISceneService sceneService;
         private PlayerView playerView;
 
         [Inject(Id = TransformInjectKeys.SpawnPoint)]
         private Transform SpawnPoint { get; }
         
-        public CoreService(PlayerFacade playerFacade, IUiService uiService)
+        public CoreService(PlayerFacade playerFacade, IUiService uiService, ISceneService sceneService)
         {
             this.playerFacade = playerFacade;
             this.uiService = uiService;
+            this.sceneService = sceneService;
         }
 
         public void Initialize()
@@ -38,6 +41,7 @@ namespace Mario.Services
         public void Exit()
         {
             uiService.Close(UiType.CoreMenu);
+            sceneService.LoadScene(SceneType.Lobby);
         }
 
         public void EnterMenu()

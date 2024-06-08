@@ -1,4 +1,5 @@
 ﻿using Mario.Repository;
+using Mario.Services.SceneLoading;
 using Mario.Zenject.Extensions;
 
 namespace Zenject.Project
@@ -8,7 +9,8 @@ namespace Zenject.Project
         public override void InstallBindings()
         {
             Container
-                .BindInterfacesNonLazy<AddressableRepository>();
+                .BindInterfacesNonLazy<AddressableRepository>()
+                .BindInterfaces<SceneService>();
         }
     }
 }

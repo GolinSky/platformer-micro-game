@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "4988c2521dd5fda7c2bb1cd0aa0f39d37180a120"
     },
+    "com.script-utils.editor-serialization": {
+      "version": "https://github.com/GolinSky/ScriptUtilities.git?path=/Assets/ScriptUtils/EditorSerialization",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "598c53798f5489adb8b0244aff9ea423db863cd7"
+    },
     "com.script-utils.math": {
       "version": "https://github.com/GolinSky/ScriptUtilities.git?path=/Assets/ScriptUtils/Math",
       "depth": 0,
