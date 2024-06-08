@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Mario.Components.Audio
 {
-    public interface IEnemyAudioModelObserver: IModelObserver 
+    public interface IEnemyAudioModelObserver: IAudioModelObserver 
     {
         AudioClip DamageAudioClip { get; }
     }
@@ -14,5 +14,11 @@ namespace Mario.Components.Audio
     {
         [field: SerializeField] public AudioClip DamageAudioClip { get; private set; }
 
+        public event Action<AudioClip> OnPlayOneShot;
+
+        public void PlayOneShot(AudioClip clip)
+        {
+            OnPlayOneShot?.Invoke(clip);
+        }
     }
 }

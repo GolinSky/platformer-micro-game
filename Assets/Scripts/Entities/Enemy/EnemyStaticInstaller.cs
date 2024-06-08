@@ -1,4 +1,5 @@
-﻿using Mario.Components.Health;
+﻿using Mario.Components.Audio;
+using Mario.Components.Health;
 using Mario.Components.Movement;
 using Mario.Zenject.Extensions;
 using Mario.Zenject.GameObjectInstallers;
@@ -16,8 +17,11 @@ namespace Mario.Entities.Enemy
         protected override void BindComponents()
         {
             base.BindComponents();
-            Container.BindInterfaces<HealthComponent>();
-            Container.BindInterfaces<MovementComponent>();
+            Container
+                .BindInterfaces<HealthComponent>()
+                .BindInterfaces<MovementComponent>()
+                .BindInterfaces<EnemyAudioComponent>();
+
         }
     }
 }

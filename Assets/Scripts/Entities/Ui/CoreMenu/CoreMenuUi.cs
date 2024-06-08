@@ -17,24 +17,32 @@ namespace Mario.Entities.Ui.CoreMenu
         [Inject]
         private ICoreGameCommand CoreGameCommand { get; }
         
+        [Inject]
+        private IAudioCommand AudioCommand { get; } 
+        
+        
         public override void Initialize()
         {
             base.Initialize();
-            exitButton.onClick.AddListener(CoreGameCommand.Exit);
             openButton.onClick.AddListener(OpenMenu);
             closeButton.onClick.AddListener(CloseMenu);
+            exitButton.onClick.AddListener(CoreGameCommand.Exit);
             openButton.onClick.AddListener(CoreGameCommand.EnterMenu);
             closeButton.onClick.AddListener(CoreGameCommand.ExitMenu);
+            soundToggle.onValueChanged.AddListener(AudioCommand.MuteSound);
+            musicToggle.onValueChanged.AddListener(AudioCommand.MuteMusic);
         }
 
         public override void LateDispose()
         {
             base.LateDispose();
-            exitButton.onClick.RemoveListener(CoreGameCommand.Exit);
             openButton.onClick.RemoveListener(OpenMenu);
             closeButton.onClick.RemoveListener(CloseMenu);
+            exitButton.onClick.RemoveListener(CoreGameCommand.Exit);
             openButton.onClick.RemoveListener(CoreGameCommand.EnterMenu);
             closeButton.onClick.RemoveListener(CoreGameCommand.ExitMenu);
+            soundToggle.onValueChanged.RemoveListener(AudioCommand.MuteSound);
+            musicToggle.onValueChanged.RemoveListener(AudioCommand.MuteMusic);
         }
         
         private void CloseMenu()

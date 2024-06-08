@@ -1,4 +1,5 @@
-﻿using Mario.Components.Health;
+﻿using Mario.Components.Audio;
+using Mario.Components.Health;
 using Mario.Components.Movement;
 using Mario.Zenject.Extensions;
 using Mario.Zenject.GameObjectInstallers;
@@ -29,8 +30,11 @@ namespace Mario.Entities.Player
         protected override void BindComponents()
         {
             base.BindComponents();
-            Container.BindInterfaces<PlayerMovementComponent>();
-            Container.BindInterfaces<HealthComponent>();
+            Container
+                .BindInterfaces<PlayerMovementComponent>()
+                .BindInterfaces<HealthComponent>()
+                .BindInterfaces<PlayerAudioComponent>();
+
         }
 
         protected override void BindModel()
