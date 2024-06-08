@@ -8,6 +8,8 @@ namespace Mario.Components.Health
         event Action OnDied;
         event Action OnApplyDamage;
         event Action OnRespawn;
+        
+        int RespawnAmount { get; }
         bool IsDead { get;  }
     }
     

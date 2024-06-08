@@ -20,5 +20,6 @@ MonoBehaviour:
     <JumpDeceleration>k__BackingField: 7
     <JumpTakeOffSpeed>k__BackingField: 0
     <MaxHorizontalSpeed>k__BackingField: 3
-  healthModel:
-    Test: enemy
+  enemyAudioModel:
+    <DamageAudioClip>k__BackingField: {fileID: 8300000, guid: b7f741588644cd64bbee6387cb54a96d,
+      type: 3}

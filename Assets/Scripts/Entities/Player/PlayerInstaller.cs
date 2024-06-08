@@ -12,6 +12,9 @@ namespace Mario.Entities.Player
         private Vector3 startPosition;
 
         [Inject]
+        private SceneContext SceneContext { get; }
+        
+        [Inject]
         public void Construct(Vector3 startPosition)
         {
             this.startPosition = startPosition;
@@ -28,6 +31,14 @@ namespace Mario.Entities.Player
             base.BindComponents();
             Container.BindInterfaces<PlayerMovementComponent>();
             Container.BindInterfaces<HealthComponent>();
+        }
+
+        protected override void BindModel()
+        {
+            base.BindModel();
+            SceneContext
+                .Container.Bind<IPlayerModelObserver>()
+                .FromMethod(()=> Container.Resolve<IPlayerModelObserver>());
         }
     }
 }
