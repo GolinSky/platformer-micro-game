@@ -1,26 +1,25 @@
 ﻿using LightWeightFramework.Model;
-using Mario.Components.Base;
 using Mario.Components.Health;
-using UnityEngine;
+using Mario.Services;
 using Zenject;
 
 namespace Mario.Components.Audio
 {
-    public class EnemyAudioComponent : Component<EnemyAudioModel>, IInitializable, ILateDisposable
+    public class EnemyAudioComponent : BaseAudioComponent<EnemyAudioModel>, IInitializable, ILateDisposable
     {
         private readonly IHealthModelObserver healthModelObserver;
 
-        public EnemyAudioComponent(IModel rootModel) : base(rootModel)
+        public EnemyAudioComponent(IModel rootModel, IAudioService audioService) : base(rootModel, audioService)
         {
             healthModelObserver = rootModel.GetModelObserver<IHealthModelObserver>();
         }
         
-        public void Initialize()
+        protected override void OnInit()
         {
             healthModelObserver.OnDied += PlayDieClip;
         }
 
-        public void LateDispose()
+        protected override void OnRelease()
         {
             healthModelObserver.OnDied -= PlayDieClip;
         }
@@ -28,11 +27,6 @@ namespace Mario.Components.Audio
         private void PlayDieClip()
         {
             PlayClip(Model.DamageAudioClip);
-        }
-
-        private void PlayClip(AudioClip clip)
-        {
-            Model.PlayOneShot(clip);
         }
     }
 }

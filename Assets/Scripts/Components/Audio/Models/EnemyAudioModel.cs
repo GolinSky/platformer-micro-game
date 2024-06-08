@@ -1,5 +1,4 @@
 ﻿using System;
-using LightWeightFramework.Model;
 using UnityEngine;
 
 namespace Mario.Components.Audio
@@ -10,15 +9,8 @@ namespace Mario.Components.Audio
     }
     
     [Serializable]
-    public class EnemyAudioModel:InnerModel, IEnemyAudioModelObserver
+    public class EnemyAudioModel:BaseAudioModel, IEnemyAudioModelObserver
     {
         [field: SerializeField] public AudioClip DamageAudioClip { get; private set; }
-
-        public event Action<AudioClip> OnPlayOneShot;
-
-        public void PlayOneShot(AudioClip clip)
-        {
-            OnPlayOneShot?.Invoke(clip);
-        }
     }
 }
