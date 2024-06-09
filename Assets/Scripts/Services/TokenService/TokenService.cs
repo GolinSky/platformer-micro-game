@@ -60,8 +60,6 @@ namespace Mario.Services.TokenService
         public void Initialize()
         {
             coreService.AddObserver(this);
-            uiService.Show(UiType.Congratulations);
-
         }
 
         public void LateDispose()
