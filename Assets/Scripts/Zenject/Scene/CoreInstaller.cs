@@ -2,6 +2,7 @@ using LightWeightFramework.Components.Repository;
 using Mario.Entities.Player;
 using Mario.Entities.PositionProvider;
 using Mario.Services;
+using Mario.Services.TokenService;
 using Mario.Zenject.Extensions;
 using Mario.Zenject.Scene;
 using UnityEngine;
@@ -23,7 +24,8 @@ public class CoreInstaller : MonoInstaller
 
         Container
             .BindInterfacesNonLazy<CoreService>()
-            .BindInterfaces<InputService>();
+            .BindInterfaces<InputService>()
+            .BindInterfaces<TokenService>();
 
         Container
             .BindInstance(spawnPoint)
@@ -31,5 +33,6 @@ public class CoreInstaller : MonoInstaller
             .AsSingle();
 
         Container.BindEntity(positionProvider);
+        
     }
 }

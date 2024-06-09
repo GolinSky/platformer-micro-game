@@ -1,5 +1,6 @@
 using Mario.Components.Health;
 using Mario.Services;
+using Mario.Services.TokenService;
 using Platformer.Gameplay;
 using UnityEngine;
 using Zenject;
@@ -36,6 +37,9 @@ namespace Platformer.Mechanics
         [Inject]
         private IAudioService AudioService { get; }
         
+        [Inject]
+        private ITokenService TokenService { get; }
+        
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
@@ -62,7 +66,7 @@ namespace Platformer.Mechanics
 
             
             AudioService.PlayClipAtPoint(tokenCollectAudio, transform.position);
-
+            TokenService.Collect();
         }
     }
 }

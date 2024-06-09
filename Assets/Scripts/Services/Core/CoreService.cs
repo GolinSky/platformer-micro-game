@@ -14,7 +14,6 @@ namespace Mario.Services
         void Exit();
         void EnterMenu();
         void ExitMenu();
-
         void WinGame();
     }
 

@@ -1,6 +1,7 @@
 ﻿using Mario.Components.Health;
 using Mario.Configuration;
 using Mario.Entities.Player;
+using Mario.Services.TokenService;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -18,19 +19,29 @@ namespace Mario.Entities.Ui.Player
         [Inject]
         public IPlayerModelObserver PlayerModelObserver { get; }
         
+        [Inject]
+        public ITokenService TokenService { get; } // bad code
         
         public override void Initialize()
         {
             healthModelObserver = PlayerModelObserver.GetModelObserver<IHealthModelObserver>();
             UpdateRespawnInformation();
             UpdateDistanceText();
-
+            UpdateTokenText();
             healthModelObserver.OnRespawn += UpdateRespawnInformation;
+            TokenService.OnCollected += UpdateTokenText;
         }
+
 
         public override void LateDispose()
         {
             healthModelObserver.OnRespawn -= UpdateRespawnInformation;
+            TokenService.OnCollected -= UpdateTokenText;
+        }
+        
+        private void UpdateTokenText()
+        {
+            diamondText.text = TokenService.TokenAmount.ToString(StringConfiguration.CultureInfo);
         }
         
         private void UpdateRespawnInformation()
@@ -40,7 +51,7 @@ namespace Mario.Entities.Ui.Player
 
         private void UpdateDistanceText()
         {
-            distanceText.text = PlayerModelObserver.DistanceFromSpawnPoint.ToString(StringConfiguration.CultureInfo);
+            distanceText.text = Mathf.RoundToInt(PlayerModelObserver.DistanceFromSpawnPoint).ToString(StringConfiguration.CultureInfo);
         }
 
         protected override void OnUpdate()
