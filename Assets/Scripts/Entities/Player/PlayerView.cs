@@ -1,16 +1,26 @@
-﻿using Mario.Entities.Base;
+﻿using Mario.Components.Animator;
+using Mario.Entities.Base;
+using UnityEngine;
 
 namespace Mario.Entities.Player
 {
     public class PlayerView : View<IPlayerModelObserver>
     {
+        [SerializeField] protected AnimatorViewComponent animatorViewComponent;
+        
         protected override void OnInitialize()
         {
-            //transform.position = Model.StartPosition;
+            Model.OnWin += HandleWin;
         }
 
         protected override void OnDispose()
         {
+            Model.OnWin -= HandleWin;
+        }
+        
+        private void HandleWin()
+        {
+            animatorViewComponent.PlayWinAnimation();
         }
     }
 }

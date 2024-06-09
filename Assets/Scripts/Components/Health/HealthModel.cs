@@ -1,5 +1,7 @@
 ﻿using System;
 using LightWeightFramework.Model;
+using Mario.Entities.Player;
+using Zenject;
 
 namespace Mario.Components.Health
 {
@@ -9,6 +11,7 @@ namespace Mario.Components.Health
         event Action OnApplyDamage;
         event Action OnRespawn;
         
+        EntityType EntityType { get; }
         int RespawnAmount { get; }
         bool IsDead { get;  }
     }
@@ -20,6 +23,8 @@ namespace Mario.Components.Health
         public event Action OnApplyDamage;
         public event Action OnRespawn;
 
+        [Inject]
+        public EntityType EntityType { get; }
         public int RespawnAmount { get; private set; }
         public bool IsDead { get; private set; }
 

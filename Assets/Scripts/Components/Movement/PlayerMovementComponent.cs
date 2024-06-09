@@ -43,6 +43,11 @@ namespace Mario.Components.Movement
                     movementComponent.StopJumping();
                 }
             }
+            else
+            {
+                Model.Direction = Vector2.zero;
+                Model.Velocity = Vector2.zero;
+            }
             
             movementComponent.Tick();
         }

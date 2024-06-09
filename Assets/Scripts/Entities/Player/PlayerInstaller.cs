@@ -25,6 +25,7 @@ namespace Mario.Entities.Player
         {
             base.BindParameters();
             Container.BindEntity(startPosition);
+            Container.BindEntity(EntityType.Player);
         }
 
         protected override void BindComponents()

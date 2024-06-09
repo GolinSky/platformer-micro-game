@@ -1,5 +1,5 @@
 ﻿using LightWeightFramework.Components.ViewComponents;
-using Unity.VisualScripting;
+using Mario.Entities.Player;
 using UnityEngine;
 using Zenject;
 
@@ -11,6 +11,8 @@ namespace Mario.Components.Health
         void ApplyDamage(DamageType damageType);
         
         bool IsDead { get; }
+        
+        bool IsPlayer { get; }
         
     }
 
@@ -29,5 +31,6 @@ namespace Mario.Components.Health
         }
 
         public bool IsDead => Model.IsDead;
+        public bool IsPlayer => Model.EntityType == EntityType.Player;
     }
 }

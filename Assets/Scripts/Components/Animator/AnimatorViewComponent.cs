@@ -14,7 +14,8 @@ namespace Mario.Components.Animator
         private static readonly int VelocityX = UnityEngine.Animator.StringToHash("velocityX");
         private static readonly int Hurt = UnityEngine.Animator.StringToHash("hurt");
         private static readonly int Dead = UnityEngine.Animator.StringToHash("dead");
-        
+        private static readonly int Victory = UnityEngine.Animator.StringToHash("victory");
+
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private UnityEngine.Animator animator;
 
@@ -58,6 +59,11 @@ namespace Mario.Components.Animator
         {
             animator.SetTrigger(Hurt);
             animator.SetBool(Dead, true);
+        }
+
+        public void PlayWinAnimation()
+        {
+            animator.SetTrigger(Victory);
         }
     }
 }

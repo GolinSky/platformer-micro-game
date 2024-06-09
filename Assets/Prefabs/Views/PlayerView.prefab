@@ -58,6 +58,7 @@ MonoBehaviour:
   - {fileID: 545282779925069893}
   - {fileID: 7239015454306466061}
   - {fileID: 6606268734256383004}
+  animatorViewComponent: {fileID: 545282779925069893}
 --- !u!114 &5492382063760584423
 MonoBehaviour:
   m_ObjectHideFlags: 0

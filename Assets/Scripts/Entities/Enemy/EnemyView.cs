@@ -27,17 +27,17 @@ namespace Mario.Entities.Enemy
         {
             if(healthViewComponent.IsDead) return;
             
-            IHealthViewComponent enemyHealth = other.gameObject.GetComponent<IHealthViewComponent>();
-            if (enemyHealth != null)
+            IHealthViewComponent playerHealth = other.gameObject.GetComponent<IHealthViewComponent>();
+            if (playerHealth != null)
             {
-                if(enemyHealth.IsDead) return;
+                if(playerHealth.IsDead && playerHealth.IsPlayer) return;
                 
-                bool isTakingDamage = enemyHealth.Bounds.center.y >= healthViewComponent.Bounds.max.y;
+                bool isTakingDamage = playerHealth.Bounds.center.y >= healthViewComponent.Bounds.max.y;
                 if (isTakingDamage)
                 {
                     healthViewComponent.ApplyDamage(DamageType.ReceiveDamage);
                 }
-                enemyHealth.ApplyDamage(isTakingDamage ? DamageType.ApplyDamage: DamageType.ReceiveDamage);
+                playerHealth.ApplyDamage(isTakingDamage ? DamageType.ApplyDamage: DamageType.ReceiveDamage);
             }
         }
     }

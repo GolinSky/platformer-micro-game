@@ -15,15 +15,14 @@ namespace Mario.Entities.Camera
     {
         public event Action OnTargetChanged;
 
-        private Transform playerTransform;
-
-
+        private Transform targetTransform;
+        
         public Transform TargetTransform
         {
-            get => playerTransform;
+            get => targetTransform;
             set
             {
-                playerTransform = value;
+                targetTransform = value;
                 OnTargetChanged?.Invoke();
             }
         }
