@@ -32,7 +32,6 @@ namespace Mario.Entities.Ui.Player
             TokenService.OnCollected += UpdateTokenText;
         }
 
-
         public override void LateDispose()
         {
             healthModelObserver.OnRespawn -= UpdateRespawnInformation;

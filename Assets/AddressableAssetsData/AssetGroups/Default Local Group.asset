@@ -16,12 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 40bb22a9612235e439b6883bcc02628b
-  m_SerializeEntries:
-  - m_GUID: 3d0aca7a8fabf0743ace693e88382f16
-    m_Address: CameraModel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a124bb0c1fa36cc419fe5e4a3247c8c4, type: 2}
   m_SchemaSet:

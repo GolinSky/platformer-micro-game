@@ -450,8 +450,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -640,6 +640,8 @@ MonoBehaviour:
   viewComponents: []
   backgroundRectTransform: {fileID: 7288647723901490358}
   knobRectTransform: {fileID: 1026786615305091055}
+  speedUpButton: {fileID: 0}
+  spawnButton: {fileID: 0}
   offset: 1
 --- !u!114 &8269818420954835917
 MonoBehaviour:

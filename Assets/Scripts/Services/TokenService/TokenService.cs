@@ -20,7 +20,7 @@ namespace Mario.Services.TokenService
 
         public int TokenAmount { get; private set; }
 
-        private string SaveDataKey => nameof(TokenService);
+        private string SaveDataKey => SaveDataTypes.Tokens.ToString();
 
         public TokenService(ISaveDataService saveDataService, ICoreService coreService)
         {

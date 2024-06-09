@@ -32,7 +32,7 @@ namespace Mario.Services
         public IAudioSettings SoundSettings => soundSettings;
         public IAudioSettings MusicSettings => musicSettings;
 
-        private string SaveDataKey => nameof(AudioService);
+        private string SaveDataKey => SaveDataTypes.Audio.ToString();
 
         public AudioService(ICoreService coreService, ISaveDataService saveDataService)
         {

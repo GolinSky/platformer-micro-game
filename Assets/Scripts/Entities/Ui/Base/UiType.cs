@@ -6,5 +6,6 @@
         Victory = 1,
         CoreMenu = 2,
         LobbyMenu = 3,
+        PlayerStatistics = 4,
     }
 }

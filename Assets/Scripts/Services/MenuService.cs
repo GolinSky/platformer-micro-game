@@ -16,6 +16,7 @@ namespace Mario.Services
         public void Initialize()
         {
             uiService.Show(UiType.LobbyMenu);
+            uiService.Show(UiType.PlayerStatistics);
         }
     }
 }
