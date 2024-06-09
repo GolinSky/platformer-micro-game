@@ -13,7 +13,7 @@ namespace Mario.Components.Movement
     {
         void Bounce(float value);
         void MoveToStartPosition();
-        void Block(bool isBlocked);
+        void Block(bool isBlocked, float delay = 0f);
         void SpeedUp(float speedUpDuration);
         void TeleportToVictoryPosition();
     }
@@ -48,7 +48,7 @@ namespace Mario.Components.Movement
             Model.MoveToStartPosition();
         }
 
-        public void Block(bool isBlocked)
+        public void Block(bool isBlocked, float delay)
         {
             //fix this
         }

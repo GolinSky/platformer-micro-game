@@ -75,7 +75,7 @@ namespace Mario.Entities.Player
                 canReborn = false;
                 movementCommand.MoveToStartPosition();
                 healthCommand.Reborn();
-                movementCommand.Block(false);
+                movementCommand.Block(false, Model.RebornDelay);
             }
         }
 

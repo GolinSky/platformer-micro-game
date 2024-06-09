@@ -4,6 +4,8 @@ using Mario.Entities.PositionProvider;
 using Mario.Services;
 using Platformer.Mechanics;
 using UnityEngine;
+using Utilities.ScriptUtils.Math;
+using Utilities.ScriptUtils.Time;
 using Zenject;
 
 namespace Mario.Components.Movement
@@ -13,17 +15,29 @@ namespace Mario.Components.Movement
         private const float JumpSensitivity = 0.1f;
         
         private readonly IInputService inputService;
+        private readonly ITimer blockTimer;
+
         private MovementComponent movementComponent;
         private bool isBlocked;
-
+        private bool targetBlockValue;
+        
         public PlayerMovementComponent(IModel rootModel, IInputService inputService, PositionProvider positionProvider) : base(rootModel)
         {
             this.inputService = inputService;
             movementComponent = new MovementComponent(rootModel, positionProvider);
+            blockTimer = TimerFactory.ConstructTimer();
         }
 
         public void Tick()
         {
+            if (targetBlockValue != isBlocked)
+            {
+                if (blockTimer.IsComplete)
+                {
+                    isBlocked = targetBlockValue;
+                }
+            }
+            
             if (!isBlocked)
             {
                 if (inputService.HasDirectionInput)
@@ -65,9 +79,20 @@ namespace Mario.Components.Movement
             movementComponent.MoveToStartPosition();
         }
 
-        public void Block(bool isBlocked)
+        public void Block(bool isBlocked, float delay)
         {
-            this.isBlocked = isBlocked;
+            if (delay.IsEqual(0))
+            {
+                targetBlockValue = isBlocked;
+                this.isBlocked = isBlocked;
+            }
+            else
+            {
+                targetBlockValue = isBlocked;
+                blockTimer.ChangeDelay(delay);
+                blockTimer.StartTimer();
+            }
+            
         }
 
         public void SpeedUp(float speedUpDuration)
