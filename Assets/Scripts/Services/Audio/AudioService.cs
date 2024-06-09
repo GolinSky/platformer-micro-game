@@ -117,9 +117,7 @@ namespace Mario.Services
             
             AudioSource.PlayClipAtPoint(clip, position);
         }
-
- 
-
+        
         public void Update(GameState state)
         {
             if (state == GameState.Exit)
