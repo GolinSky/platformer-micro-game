@@ -57,6 +57,7 @@ namespace Mario.Services
         {
             UpdateState(GameState.Exit);
             uiService.Close(UiType.CoreMenu);
+            Time.timeScale = 1;
             sceneService.LoadScene(SceneType.Lobby);
         }
 
