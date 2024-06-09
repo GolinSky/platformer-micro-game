@@ -6,5 +6,6 @@
         Pause = 1,
         Win = 2,
         Exit = 3,
+        BlockGameFlow = 4,
     }
 }

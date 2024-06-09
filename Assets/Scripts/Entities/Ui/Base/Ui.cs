@@ -16,11 +16,13 @@ namespace Mario.Entities.Ui.Base
         public void Show()
         {
             SetCanvasState(true);
+            OnShow();
         }
 
         public void Close()
         {
             SetCanvasState(false);
+            OnClose();
         }
         
         public void Tick()

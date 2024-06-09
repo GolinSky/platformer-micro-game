@@ -7,5 +7,6 @@
         CoreMenu = 2,
         LobbyMenu = 3,
         PlayerStatistics = 4,
+        Congratulations = 5,
     }
 }
