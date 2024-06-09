@@ -2,6 +2,7 @@
 using LightWeightFramework.Model;
 using Mario.Zenject.GameObjectInstallers;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Mario.Components.Movement
@@ -38,7 +39,8 @@ namespace Mario.Components.Movement
         public event Action<Vector3> OnPositionChanged;
         public event Action OnJumped;
         public event Action OnMoveToStartPosition;
-        
+
+        public event Action OnSpeedChanged;
 
         [SerializeField] private float speedBoost;
         [field: SerializeField] public float MinGroundNormalY { get; private set; }
@@ -47,7 +49,7 @@ namespace Mario.Components.Movement
         [field: SerializeField] public float JumpDeceleration { get; private set; }
         [field: SerializeField] public float JumpTakeOffSpeed { get; private set; }
         [field: SerializeField] public float MaxHorizontalSpeed { get; private set; }
-        public float HorizontalSpeed => MaxHorizontalSpeed * speedBoostModifier;
+        public float HorizontalSpeed => MaxHorizontalSpeed * SpeedBoostModifier;
 
         
         [Inject(Id = EntityBindType.ViewTransform)]
@@ -68,7 +70,7 @@ namespace Mario.Components.Movement
         
         public bool IsGrounded { get; set; }
 
-        private float speedBoostModifier = DefaultSpeedBoost;
+        public float SpeedBoostModifier { get; private set; } =  DefaultSpeedBoost;
 
         public void SetVelocityOnAxisY(float value)
         {
@@ -107,12 +109,14 @@ namespace Mario.Components.Movement
 
         public void ActivateSpeedBoostModifier()
         {
-            speedBoostModifier = speedBoost;
+            SpeedBoostModifier = speedBoost;
+            OnSpeedChanged?.Invoke();
         }
         
         public void ResetSpeedBoostModifier()
         {
-            speedBoostModifier = DefaultSpeedBoost;
+            SpeedBoostModifier = DefaultSpeedBoost;
+            OnSpeedChanged?.Invoke();
         }
     }
 }

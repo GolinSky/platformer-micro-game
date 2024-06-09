@@ -24,6 +24,7 @@ namespace Mario.Components.Audio
         private void UpdateSettings(IAudioSettings audioSettings)
         {
             audioSource.mute = audioSettings.IsMute;
+            audioSource.pitch = audioSettings.Speed;
         }
 
         private void PlayOneShot(AudioClip clip)

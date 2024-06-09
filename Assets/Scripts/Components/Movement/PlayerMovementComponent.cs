@@ -10,24 +10,46 @@ using Zenject;
 
 namespace Mario.Components.Movement
 {
-    public class PlayerMovementComponent: Component<MovementModel>, ITickable, IMovementCommand
+    public class PlayerMovementComponent: Component<MovementModel>, ITickable, IMovementCommand, IInitializable, ILateDisposable
     {
         private const float JumpSensitivity = 0.1f;
         
         private readonly IInputService inputService;
+        private readonly IAudioService audioService;
         private readonly ITimer blockTimer;
 
-        private MovementComponent movementComponent;
+        private readonly MovementComponent movementComponent;
         private bool isBlocked;
         private bool targetBlockValue;
         
-        public PlayerMovementComponent(IModel rootModel, IInputService inputService, PositionProvider positionProvider) : base(rootModel)
+        public PlayerMovementComponent(
+            IModel rootModel,
+            IInputService inputService,
+            PositionProvider positionProvider,
+            IAudioService audioService) : base(rootModel)
         {
             this.inputService = inputService;
+            this.audioService = audioService;
             movementComponent = new MovementComponent(rootModel, positionProvider);
             blockTimer = TimerFactory.ConstructTimer();
         }
 
+        public void Initialize()
+        {
+            audioService.SetSpeed(Model.SpeedBoostModifier);
+            Model.OnSpeedChanged += HandleSpeed;
+        }
+        
+        public void LateDispose()
+        {
+            Model.OnSpeedChanged -= HandleSpeed;
+        }
+        
+        private void HandleSpeed()
+        {
+            audioService.SetSpeed(Model.SpeedBoostModifier);
+        }
+        
         public void Tick()
         {
             if (targetBlockValue != isBlocked)
@@ -92,7 +114,6 @@ namespace Mario.Components.Movement
                 blockTimer.ChangeDelay(delay);
                 blockTimer.StartTimer();
             }
-            
         }
 
         public void SpeedUp(float speedUpDuration)
@@ -104,5 +125,7 @@ namespace Mario.Components.Movement
         {
             movementComponent.TeleportToVictoryPosition();
         }
+
+   
     }
 }

@@ -17,6 +17,8 @@ namespace Mario.Services
         void AddMusicObserver(IAudioObserver observer);
         void RemoveMusicObserver(IAudioObserver observer);
         void PlayClipAtPoint(AudioClip clip, Vector3 position);
+
+        void SetSpeed(float speed);
     }
 
     public class AudioService: Service, IAudioCommand, IAudioService, IInitializable, ILateDisposable, IGameObserver
@@ -117,7 +119,15 @@ namespace Mario.Services
             
             AudioSource.PlayClipAtPoint(clip, position);
         }
-        
+
+        public void SetSpeed(float speed)
+        {
+            soundSettings.Speed = speed;
+            musicSettings.Speed = speed;
+            UpdateSoundObservers();
+            UpdateMusicObservers();
+        }
+
         public void Update(GameState state)
         {
             if (state == GameState.Exit)

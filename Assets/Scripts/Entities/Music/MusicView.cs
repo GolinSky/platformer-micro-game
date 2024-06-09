@@ -30,6 +30,7 @@ namespace Mario.Entities.Music
         private void UpdateSettings(IAudioSettings audioSettings)
         {
             audioSource.mute = audioSettings.IsMute;
+            audioSource.pitch = audioSettings.Speed;
         }
     }
 }

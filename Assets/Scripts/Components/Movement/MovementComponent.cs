@@ -1,4 +1,5 @@
-﻿using LightWeightFramework.Command;
+﻿using System;
+using LightWeightFramework.Command;
 using LightWeightFramework.Model;
 using Mario.Components.Base;
 using Mario.Entities.PositionProvider;
@@ -63,6 +64,7 @@ namespace Mario.Components.Movement
             isSpeedUpActive = true;
         }
 
+
         public void TeleportToVictoryPosition()
         {
             Model.Velocity = Vector3.zero;
@@ -77,7 +79,7 @@ namespace Mario.Components.Movement
             {
                 if (speedUpTimer.IsComplete)
                 {
-                    isSpeedUpActive = false;
+                    isSpeedUpActive = false; 
                     Model.ResetSpeedBoostModifier();
                 }
             }
