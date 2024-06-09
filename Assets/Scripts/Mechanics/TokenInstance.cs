@@ -1,10 +1,8 @@
 using Mario.Components.Health;
 using Mario.Services;
 using Mario.Services.TokenService;
-using Platformer.Gameplay;
 using UnityEngine;
 using Zenject;
-using static Platformer.Core.Simulation;
 
 
 namespace Platformer.Mechanics
@@ -63,7 +61,6 @@ namespace Platformer.Mechanics
             frame = 0;
             sprites = collectedAnimation;
             collected = true;
-
             
             AudioService.PlayClipAtPoint(tokenCollectAudio, transform.position);
             TokenService.Collect();

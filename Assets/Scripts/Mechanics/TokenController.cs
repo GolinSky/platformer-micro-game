@@ -19,12 +19,12 @@ namespace Platformer.Mechanics
         float nextFrameTime = 0;
 
         [ContextMenu("Find All Tokens")]
-        void FindAllTokensInScene()
+        private void FindAllTokensInScene()
         {
             tokens = UnityEngine.Object.FindObjectsOfType<TokenInstance>();
         }
 
-        void Awake()
+        private void Awake()
         {
             //if tokens are empty, find all instances.
             //if tokens are not empty, they've been added at editor time.
@@ -38,7 +38,7 @@ namespace Platformer.Mechanics
             }
         }
 
-        void Update()
+        private void Update()
         {
             //if it's time for the next frame...
             if (Time.time - nextFrameTime > (1f / frameRate))

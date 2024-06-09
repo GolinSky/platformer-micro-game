@@ -1,9 +1,7 @@
 using Mario.Components.Health;
 using Mario.Services;
-using Platformer.Gameplay;
 using UnityEngine;
 using Zenject;
-using static Platformer.Core.Simulation;
 
 namespace Platformer.Mechanics
 {
@@ -16,15 +14,8 @@ namespace Platformer.Mechanics
         [Inject]
         private ICoreGameCommand CoreGameCommand { get; }
         
-        void OnTriggerEnter2D(Collider2D collider)
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            var p = collider.gameObject.GetComponent<PlayerController>();
-            if (p != null)
-            {
-                var ev = Schedule<PlayerEnteredVictoryZone>();
-                ev.victoryZone = this;
-            }
-
             IHealthViewComponent healthViewComponent = collider.gameObject.GetComponent<IHealthViewComponent>();
             if (!healthViewComponent.IsDead && healthViewComponent.IsPlayer)
             {
