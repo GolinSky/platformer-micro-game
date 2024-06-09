@@ -1,9 +1,9 @@
 {
   "dependencies": {
+    "com.light-weight-framework": "https://github.com/GolinSky/LightWeightFramework.git?path=/Assets/LightWeightFramework",
     "com.script-utils.editor-serialization": "https://github.com/GolinSky/ScriptUtilities.git?path=/Assets/ScriptUtils/EditorSerialization",
     "com.script-utils.math": "https://github.com/GolinSky/ScriptUtilities.git?path=/Assets/ScriptUtils/Math",
     "com.script-utils.time": "https://github.com/GolinSky/ScriptUtilities.git?path=/Assets/ScriptUtils/Time",
-    "com.light-weight-framework": "https://github.com/GolinSky/LightWeightFramework.git?path=/Assets/LightWeightFramework",
     "com.unity.addressables": "1.21.21",
     "com.unity.cinemachine": "2.9.5",
     "com.unity.collab-proxy": "2.3.1",
@@ -11,6 +11,7 @@
     "com.unity.feature.2d": "2.0.0",
     "com.unity.feature.development": "1.0.1",
     "com.unity.learn.iet-framework": "3.1.3",
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.render-pipelines.universal": "14.0.10",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.6",

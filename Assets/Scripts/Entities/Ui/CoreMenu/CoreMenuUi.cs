@@ -20,10 +20,15 @@ namespace Mario.Entities.Ui.CoreMenu
         [Inject]
         private IAudioCommand AudioCommand { get; } 
         
+        [Inject]
+        private IAudioService AudioService { get; }
         
         public override void Initialize()
         {
             base.Initialize();
+            soundToggle.isOn = !AudioService.SoundSettings.IsMute;
+            musicToggle.isOn = !AudioService.MusicSettings.IsMute;
+            
             openButton.onClick.AddListener(OpenMenu);
             closeButton.onClick.AddListener(CloseMenu);
             exitButton.onClick.AddListener(CoreGameCommand.Exit);

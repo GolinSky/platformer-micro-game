@@ -7,6 +7,7 @@ namespace Mario.Entities.Music
 {
     public interface IMusicModelObserver : IModelObserver
     { 
+        IAudioSettings AudioSettings { get; }
         event Action<AudioClip> OnClipPlayed;
         event Action<IAudioSettings> OnSettingsChanged;//todo: IS -> audio model
         AudioClip MusicClip { get; }
@@ -17,11 +18,15 @@ namespace Mario.Entities.Music
     {
         public event Action<IAudioSettings> OnSettingsChanged;
         public event Action<AudioClip> OnClipPlayed;
-
+        
         [field:SerializeField] public AudioClip MusicClip { get; private set; }
+        
+        public IAudioSettings AudioSettings { get; private set; }
+
         
         public void ApplySettings(IAudioSettings audioSettings)
         {
+            AudioSettings = audioSettings;
             OnSettingsChanged?.Invoke(audioSettings);
         }
         

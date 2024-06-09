@@ -25,7 +25,9 @@ public class CoreInstaller : MonoInstaller
         Container
             .BindInterfacesNonLazy<CoreService>()
             .BindInterfaces<InputService>()
-            .BindInterfaces<TokenService>();
+            .BindInterfaces<TokenService>()
+            .BindInterfaces<AudioService>();
+
 
         Container
             .BindInstance(spawnPoint)

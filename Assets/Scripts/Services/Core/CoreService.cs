@@ -51,6 +51,7 @@ namespace Mario.Services
 
         public void Exit()
         {
+            UpdateState(GameState.Exit);
             uiService.Close(UiType.CoreMenu);
             sceneService.LoadScene(SceneType.Lobby);
         }

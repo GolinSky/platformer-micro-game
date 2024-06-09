@@ -1,6 +1,6 @@
 ﻿using LightWeightFramework.Components.Repository;
 using Mario.Repository;
-using Mario.Services;
+using Mario.Services.SaveData;
 using Mario.Services.SceneLoading;
 using Mario.Zenject.Extensions;
 
@@ -13,7 +13,7 @@ namespace Zenject.Project
             Container
                 .BindInterfacesNonLazy<AddressableRepository>()
                 .BindInterfaces<SceneService>()
-                .BindInterfaces<AudioService>();
+                .BindInterfaces<SaveDataService>();
 
             IRepository repository = Container.Resolve<IRepository>();
             Container.BindModel<SceneModel>(repository);

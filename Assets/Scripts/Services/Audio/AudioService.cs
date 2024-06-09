@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using LightWeightFramework.Components.Service;
+using Mario.Services.SaveData;
 using UnityEngine;
+using Zenject;
 
 namespace Mario.Services
 {
@@ -17,8 +19,10 @@ namespace Mario.Services
         void PlayClipAtPoint(AudioClip clip, Vector3 position);
     }
 
-    public class AudioService: Service, IAudioCommand, IAudioService
+    public class AudioService: Service, IAudioCommand, IAudioService, IInitializable, ILateDisposable, IGameObserver
     {
+        private readonly ICoreService coreService;
+        private readonly ISaveDataService saveDataService;
         private readonly AudioSettings soundSettings;
         private readonly AudioSettings musicSettings;
 
@@ -26,29 +30,64 @@ namespace Mario.Services
         private readonly List<IAudioObserver> musicObservers = new List<IAudioObserver>();
 
         public IAudioSettings SoundSettings => soundSettings;
-        public IAudioSettings MusicSettings => soundSettings;
+        public IAudioSettings MusicSettings => musicSettings;
 
-        public AudioService()
+        private string SaveDataKey => nameof(AudioService);
+
+        public AudioService(ICoreService coreService, ISaveDataService saveDataService)
         {
-            soundSettings = new AudioSettings();
-            musicSettings = new AudioSettings();
+            this.coreService = coreService;
+            this.saveDataService = saveDataService;
+            if(saveDataService.HasKey(SaveDataKey))
+            {
+                AudioDto audioDto = saveDataService.Get<AudioDto>(SaveDataKey);
+                musicSettings = audioDto.MusicSettings;
+                soundSettings = audioDto.SoundSettings;
+            }
+            else
+            {
+                soundSettings = new AudioSettings();
+                musicSettings = new AudioSettings();
+            }
+        }
+        
+        public void Initialize()
+        {
+            coreService.AddObserver(this);
+            UpdateSoundObservers();
+            UpdateSoundObservers();
+        }
+
+        public void LateDispose()
+        {
+            coreService.RemoveObserver(this);
         }
         
         public void MuteSound(bool isActive)
         {
             soundSettings.IsMute = !isActive;
-            foreach (IAudioObserver soundObserver in soundObservers)
-            {
-                soundObserver.Update(soundSettings);
-            }
+            UpdateSoundObservers();
         }
-
+        
         public void MuteMusic(bool isActive)
         {
             musicSettings.IsMute = !isActive;
+            UpdateMusicObservers();
+        }
+
+        private void UpdateMusicObservers()
+        {
             foreach (IAudioObserver musicObserver in musicObservers)
             {
                 musicObserver.Update(musicSettings);
+            }
+        }
+        
+        private void UpdateSoundObservers()
+        {
+            foreach (IAudioObserver soundObserver in soundObservers)
+            {
+                soundObserver.Update(soundSettings);
             }
         }
 
@@ -77,6 +116,17 @@ namespace Mario.Services
             if(soundSettings.IsMute) return;
             
             AudioSource.PlayClipAtPoint(clip, position);
+        }
+
+ 
+
+        public void Update(GameState state)
+        {
+            if (state == GameState.Exit)
+            {
+                AudioDto audioDto = new AudioDto(SaveDataKey, soundSettings, musicSettings);
+                saveDataService.Save(audioDto);
+            }
         }
     }
 }

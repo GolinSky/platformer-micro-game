@@ -10,6 +10,7 @@ namespace Mario.Entities.Music
         
         protected override void OnInitialize()
         {
+            UpdateSettings(Model.AudioSettings);
             PlayClip(Model.MusicClip);
             Model.OnClipPlayed += PlayClip;
             Model.OnSettingsChanged += UpdateSettings;
