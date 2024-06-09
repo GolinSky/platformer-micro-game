@@ -20,7 +20,9 @@ namespace Mario.Entities.Enemy
         [SerializeField] private MovementModel movementModel;
         [SerializeField] private HealthModel healthModel;
         [SerializeField] private EnemyAudioModel enemyAudioModel;
-        
+
+        public MovementModel MovementModel => movementModel;
+
         protected override void Awake()
         {
             base.Awake();

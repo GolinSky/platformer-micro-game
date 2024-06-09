@@ -24,6 +24,8 @@ namespace Platformer.Mechanics
 
             IHealthViewComponent healthViewComponent = collider.gameObject.GetComponent<IHealthViewComponent>();
 
+            if(healthViewComponent == null) return;
+            
             if (!healthViewComponent.IsDead)
             {
                 healthViewComponent.ApplyDamage(DamageType.ReceiveDamage);
