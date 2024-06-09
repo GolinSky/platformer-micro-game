@@ -1,5 +1,8 @@
+using Mario.Components.Health;
+using Mario.Services;
 using Platformer.Gameplay;
 using UnityEngine;
+using Zenject;
 using static Platformer.Core.Simulation;
 
 
@@ -30,7 +33,10 @@ namespace Platformer.Mechanics
         internal int frame = 0;
         internal bool collected = false;
 
-        void Awake()
+        [Inject]
+        private IAudioService AudioService { get; }
+        
+        private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
             if (randomAnimationStartTime)
@@ -38,25 +44,25 @@ namespace Platformer.Mechanics
             sprites = idleAnimation;
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            //only exectue OnPlayerEnter if the player collides with this token.
-            var player = other.gameObject.GetComponent<PlayerController>();
-            if (player != null) OnPlayerEnter(player);
+            IHealthViewComponent healthViewComponent = other.GetComponent<IHealthViewComponent>();
+            if (healthViewComponent is { IsDead: false, IsPlayer: true })
+            {
+                OnPlayerEnter();
+            }
         }
 
-        void OnPlayerEnter(PlayerController player)
+        private void OnPlayerEnter()
         {
             if (collected) return;
-            //disable the gameObject and remove it from the controller update list.
             frame = 0;
             sprites = collectedAnimation;
-            if (controller != null)
-                collected = true;
-            //send an event into the gameplay system to perform some behaviour.
-            var ev = Schedule<PlayerTokenCollision>();
-            ev.token = this;
-            ev.player = player;
+            collected = true;
+
+            
+            AudioService.PlayClipAtPoint(tokenCollectAudio, transform.position);
+
         }
     }
 }

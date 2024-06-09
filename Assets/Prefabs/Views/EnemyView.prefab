@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 4233515948081716232}
   - component: {fileID: 6461516451293049628}
   - component: {fileID: 7787246135757088332}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: EnemyView
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ MonoBehaviour:
   - {fileID: 5905972812348109165}
   - {fileID: 487119048858557752}
   - {fileID: 5641756825388830605}
-  - {fileID: 0}
+  - {fileID: 7853929623982256219}
   healthViewComponent: {fileID: 487119048858557752}
   collider: {fileID: 6461516451293049628}
 --- !u!114 &5905972812348109165

@@ -11,7 +11,6 @@ namespace Platformer.Gameplay
     /// <typeparam name="PlayerCollision"></typeparam>
     public class PlayerTokenCollision : Simulation.Event<PlayerTokenCollision>
     {
-        public PlayerController player;
         public TokenInstance token;
 
         PlatformerModel model = Simulation.GetModel<PlatformerModel>();
