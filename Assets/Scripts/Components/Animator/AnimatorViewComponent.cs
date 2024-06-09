@@ -34,7 +34,7 @@ namespace Mario.Components.Animator
             }
 
             animator.SetBool(Grounded, Model.IsGrounded);
-            animator.SetFloat(VelocityX, Mathf.Abs(Model.Velocity.x) / Model.MaxHorizontalSpeed);
+            animator.SetFloat(VelocityX, Mathf.Abs(Model.Velocity.x) / Model.HorizontalSpeed);
         }
 
         public void Initialize()

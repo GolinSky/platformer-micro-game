@@ -45,5 +45,13 @@ namespace Mario.Entities.Player
                 .Container.Bind<IPlayerModelObserver>()
                 .FromMethod(()=> Container.Resolve<IPlayerModelObserver>());
         }
+
+        protected override void BindController()
+        {
+            base.BindController();
+            SceneContext
+                .Container.Bind<IPlayerCommand>()
+                .FromMethod(()=> Container.Resolve<IPlayerCommand>());
+        }
     }
 }

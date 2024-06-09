@@ -1,4 +1,5 @@
 ﻿using System;
+using LightWeightFramework.Command;
 using LightWeightFramework.Controller;
 using Mario.Components.Health;
 using Mario.Components.Movement;
@@ -8,7 +9,12 @@ using Zenject;
 
 namespace Mario.Entities.Player
 {
-    public class PlayerController : Controller<PlayerModel>, IInitializable, ILateDisposable, ITickable, IGameObserver
+    public interface IPlayerCommand : ICommand
+    {
+        void SpeedUp();
+        void SpawnToVictory();
+    }
+    public class PlayerController : Controller<PlayerModel>, IInitializable, ILateDisposable, ITickable, IGameObserver, IPlayerCommand
     {
         private readonly IMovementCommand movementCommand;
         private readonly IHealthCommand healthCommand;
@@ -17,7 +23,11 @@ namespace Mario.Entities.Player
         private readonly ITimer rebornTimer;
         private bool canReborn;
         
-        public PlayerController(PlayerModel model, IMovementCommand movementCommand, IHealthCommand healthCommand, ICoreService coreService) : base(model)
+        public PlayerController(
+            PlayerModel model,
+            IMovementCommand movementCommand,
+            IHealthCommand healthCommand,
+            ICoreService coreService) : base(model)
         {
             this.movementCommand = movementCommand;
             this.healthCommand = healthCommand;
@@ -80,6 +90,16 @@ namespace Mario.Entities.Player
                     break;
                 }
             }
+        }
+
+        public void SpeedUp()
+        {
+            movementCommand.SpeedUp(Model.SpeedUpDuration);
+        }
+
+        public void SpawnToVictory()
+        {
+            movementCommand.TeleportToVictoryPosition();
         }
     }
 }

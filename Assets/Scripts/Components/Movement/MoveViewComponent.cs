@@ -27,15 +27,19 @@ namespace Mario.Components.Movement
             contactFilter.useLayerMask = true;
 
             Model.OnMoveToStartPosition += MoveToStartPosition;
+            Model.OnPositionChanged += ChangePosition;
         }
-
-     
 
         protected override void OnRelease()
         {
             base.OnRelease();
             rigidbody.isKinematic = false;
             Model.OnMoveToStartPosition -= MoveToStartPosition;
+        }
+        
+        private void ChangePosition(Vector3 position)
+        {
+            rigidbody.position = position;
         }
         
         private void MoveToStartPosition()
@@ -116,7 +120,7 @@ namespace Mario.Components.Movement
                     distance = modifiedDistance < distance ? modifiedDistance : distance;
                 }
             }
-             rigidbody.position += move.normalized * distance;
+            rigidbody.position += move.normalized * distance;
         }
     }
 }

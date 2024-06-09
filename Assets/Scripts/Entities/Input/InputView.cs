@@ -1,6 +1,9 @@
 ﻿using Mario.Entities.Base;
+using Mario.Entities.Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using Zenject;
 
 namespace Mario.Entities.Input
 {
@@ -12,15 +15,28 @@ namespace Mario.Entities.Input
         
         [SerializeField] private RectTransform backgroundRectTransform;
         [SerializeField] private RectTransform knobRectTransform;
+        [SerializeField] private Button speedUpButton;
+        [SerializeField] private Button spawnButton;
         [SerializeField] private float offset;
 
         private Vector2 pointPosition = Vector2.zero;
 
+        [Inject]
+        private LazyInject<IPlayerCommand> PlayerCommand { get; }
         private Rect BackgroundRect => backgroundRectTransform.rect;
         private Rect KnobRect => knobRectTransform.rect;
-        
-        protected override void OnInitialize() {}
-        protected override void OnDispose() {}
+
+        protected override void OnInitialize()
+        {
+            speedUpButton.onClick.AddListener(PlayerCommand.Value.SpeedUp);
+            spawnButton.onClick.AddListener(PlayerCommand.Value.SpawnToVictory);
+        }
+
+        protected override void OnDispose()
+        {
+            speedUpButton.onClick.RemoveListener(PlayerCommand.Value.SpeedUp);
+            spawnButton.onClick.RemoveListener(PlayerCommand.Value.SpawnToVictory);
+        }
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData) {}
 

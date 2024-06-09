@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   models: []
   movementModel:
+    speedBoost: 1.5
     <MinGroundNormalY>k__BackingField: 0.9
     <GravityModifier>k__BackingField: 1
     <JumpModifier>k__BackingField: 0.9
@@ -29,3 +30,4 @@ MonoBehaviour:
       type: 3}
   <RebornDelay>k__BackingField: 2
   <BounceForce>k__BackingField: 2
+  <SpeedUpDuration>k__BackingField: 5

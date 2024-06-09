@@ -1,8 +1,10 @@
 ﻿using LightWeightFramework.Command;
 using LightWeightFramework.Model;
 using Mario.Components.Base;
+using Mario.Entities.PositionProvider;
 using Platformer.Mechanics;
 using UnityEngine;
+using Utilities.ScriptUtils.Time;
 using Zenject;
 
 namespace Mario.Components.Movement
@@ -12,21 +14,28 @@ namespace Mario.Components.Movement
         void Bounce(float value);
         void MoveToStartPosition();
         void Block(bool isBlocked);
+        void SpeedUp(float speedUpDuration);
+        void TeleportToVictoryPosition();
     }
 
     public class MovementComponent: Component<MovementModel>, ITickable, IMovementCommand
     {
+        private readonly PositionProvider positionProvider;
+        private readonly ITimer speedUpTimer;
         private Vector2 direction;
         private JumpState jumpState;
         private bool isStopJumping;
         private bool isJumping;
-        private bool isBlocked;
-
-        public MovementComponent(IModel rootModel) : base(rootModel)
-        {
-        }
-
+        private bool isSpeedUpActive;
+        
         public JumpState JumpState => jumpState;
+
+
+        public MovementComponent(IModel rootModel, PositionProvider positionProvider) : base(rootModel)
+        {
+            this.positionProvider = positionProvider;
+            speedUpTimer = TimerFactory.ConstructTimer();
+        }
 
         public void Bounce(float value)
         {
@@ -44,10 +53,34 @@ namespace Mario.Components.Movement
             //fix this
         }
 
+        public void SpeedUp(float speedUpDuration)
+        {
+            if(isSpeedUpActive) return;
+            
+            Model.ActivateSpeedBoostModifier();
+            speedUpTimer.ChangeDelay(speedUpDuration);
+            speedUpTimer.StartTimer();
+            isSpeedUpActive = true;
+        }
+
+        public void TeleportToVictoryPosition()
+        {
+            Model.Velocity = Vector3.zero;
+            Model.MoveTo(positionProvider.VictoryPoint);
+        }
+
         public void Tick()
         {
             UpdateJumpState();
             ComputeVelocity();
+            if (isSpeedUpActive)
+            {
+                if (speedUpTimer.IsComplete)
+                {
+                    isSpeedUpActive = false;
+                    Model.ResetSpeedBoostModifier();
+                }
+            }
         }
 
         private void UpdateJumpState()
@@ -98,7 +131,7 @@ namespace Mario.Components.Movement
                 }
             }
 
-            Model.TargetVelocity = Model.Direction * Model.MaxHorizontalSpeed;
+            Model.TargetVelocity = Model.Direction * Model.HorizontalSpeed;
         }
 
         public void SetJumpState(JumpState jumpState)

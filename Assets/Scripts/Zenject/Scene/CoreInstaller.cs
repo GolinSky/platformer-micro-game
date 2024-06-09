@@ -1,5 +1,6 @@
 using LightWeightFramework.Components.Repository;
 using Mario.Entities.Player;
+using Mario.Entities.PositionProvider;
 using Mario.Services;
 using Mario.Zenject.Extensions;
 using Mario.Zenject.Scene;
@@ -9,6 +10,7 @@ using Zenject;
 public class CoreInstaller : MonoInstaller
 {
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private PositionProvider positionProvider;
     
     [Inject] private IRepository Repository { get; }
 
@@ -27,5 +29,7 @@ public class CoreInstaller : MonoInstaller
             .BindInstance(spawnPoint)
             .WithId(TransformInjectKeys.SpawnPoint)
             .AsSingle();
+
+        Container.BindEntity(positionProvider);
     }
 }

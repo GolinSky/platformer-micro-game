@@ -8,6 +8,7 @@ namespace Mario.Components.Movement
 {
     public interface IMovementModelObserver : IModelObserver
     {
+        event Action<Vector3> OnPositionChanged;
         event Action OnJumped;
         event Action OnMoveToStartPosition;
         
@@ -20,7 +21,7 @@ namespace Mario.Components.Movement
         
         float MinGroundNormalY { get; }
         float GravityModifier { get; }
-        float MaxHorizontalSpeed { get; }
+        float HorizontalSpeed { get; }
         bool IsGrounded { get; set; } // todo: refactor
         
         void SetVelocityOnAxisX(float value);
@@ -32,15 +33,21 @@ namespace Mario.Components.Movement
     [Serializable]
     public class MovementModel : InnerModel, IMovementModelObserver
     {
+        private const float DefaultSpeedBoost = 1f;
+        
+        public event Action<Vector3> OnPositionChanged;
         public event Action OnJumped;
         public event Action OnMoveToStartPosition;
+        
 
+        [SerializeField] private float speedBoost;
         [field: SerializeField] public float MinGroundNormalY { get; private set; }
         [field: SerializeField] public float GravityModifier { get; private set; }
         [field: SerializeField] public float JumpModifier { get; private set; }
         [field: SerializeField] public float JumpDeceleration { get; private set; }
         [field: SerializeField] public float JumpTakeOffSpeed { get; private set; }
         [field: SerializeField] public float MaxHorizontalSpeed { get; private set; }
+        public float HorizontalSpeed => MaxHorizontalSpeed * speedBoostModifier;
 
         
         [Inject(Id = EntityBindType.ViewTransform)]
@@ -60,7 +67,8 @@ namespace Mario.Components.Movement
         public Vector2 CurrentPosition => ViewTransform.Value.position;
         
         public bool IsGrounded { get; set; }
-        
+
+        private float speedBoostModifier = DefaultSpeedBoost;
 
         public void SetVelocityOnAxisY(float value)
         {
@@ -87,9 +95,24 @@ namespace Mario.Components.Movement
             OnMoveToStartPosition?.Invoke();
         }
 
+        public void MoveTo(Vector3 position)
+        {
+            OnPositionChanged?.Invoke(position);
+        }
+
         public void InvokeJumpedEvent()
         {
             OnJumped?.Invoke();
+        }
+
+        public void ActivateSpeedBoostModifier()
+        {
+            speedBoostModifier = speedBoost;
+        }
+        
+        public void ResetSpeedBoostModifier()
+        {
+            speedBoostModifier = DefaultSpeedBoost;
         }
     }
 }
